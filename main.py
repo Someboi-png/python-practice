@@ -1,23 +1,40 @@
 class Ship:
-    def __init__(self, name, speed, fuel_per_hour):
+    def __init__(self, name, speed):
         self.name = name
         self.speed = speed
-        self.fuel_per_hour = fuel_per_hour
 
-    def trip_fuel(self,distance):
-        time = distance/self.speed
-        return time * self.fuel_per_hour
+    def trip_time(self, distance):
+        return distance/self.speed
 
-ship1 = Ship("Orion", 15, 2.0)
-ship2 = Ship("Ozon", 25, 3.0)
-ship3 = Ship("Atlant", 20, 2.5)
+ships = Ship("Orion", 15), Ship("Ozon", 25), Ship("Atlant", 20)
 
-ships = [ship1,ship2,ship3]
+while True:
+    name = input("Какое судно? ")
 
-for ship in ships:
-    fuel = ship.trip_fuel(300)
-    print(f"{ship.name}: {fuel} т")
+    if name.lower() == "выход":
+        print("До свидания")
+        break
 
-best_ship = min(ships, key=lambda ship: ship.trip_fuel(300))
+    found = False
 
-print(f"Меньше всего топлива: {best_ship.name}, {best_ship.trip_fuel(300)} т")
+    for ship in ships:
+        if ship.name.lower() == name.lower():
+            found = True
+
+            while True:
+                try:
+                    distance = float(input("Расстояние в милях? "))
+                    if distance <= 0:
+                        print("Расстояние должно быть больше 0 ")
+                        continue
+                    break
+                except ValueError:
+                    print("Нужно ввести число")
+
+            time = ship.trip_time(distance)
+
+            print(f"{ship.name}: {time:.1f} ч до порта. ")
+            break
+
+    if not found:
+        print("Такого судна нету в списке. ")
