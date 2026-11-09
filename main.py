@@ -1,14 +1,19 @@
-def even_numbers(numbers):
-    results = []
+total = 0
+count = 0
 
-    for number in numbers:
-        if number % 2 == 0:
-            results.append(number)
+with open("fuel.txt") as file:
+    for line in file:
+        line = line.strip()
 
-    return results
+        if line == "":
+          continue
 
-first_list = [3, 4, 7, 10, 2]
-second_list = [1, 6, 9, 8]
+        fuel = int(line)
+        total += fuel
+        count += 1
 
-print(f"Четные из первого списка: {even_numbers(first_list)}")
-print(f"Четные из второго списка: {even_numbers(second_list)}")
+average = total / count
+
+print(f"Значений: {count}")
+print(f"Сумма: {total}")
+print(f"Среднее: {average}")
